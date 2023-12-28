@@ -9,12 +9,15 @@ public class FileUtils {
   private ArrayList<Character> inputCharList;
   private ArrayList<Integer> inputFreqList;
   private int numOfLetters;
+  private ArrayList<Character> textList;
 
   public FileUtils(){
+    ArrayList<Character> textList = new ArrayList<>();
     try{
       //File myFile = new File("/Les-Misérables.txt");
       //System.out.println("File exists: "+myFile.isDirectory());
       FileInputStream input = new FileInputStream("Les-Misérables.txt");
+      
       //FileInputStream input = new FileInputStream("test.txt");
 
       
@@ -40,9 +43,11 @@ public class FileUtils {
       
       //Run the loop until the end of file
       while(i != -1){
+        //Store the character in a list to encode later
+        textList.add(currentLetter);
 
-      //if key does not exist, put 1 as value otherwise sum 1 to the value linked to key
-      letterMap.merge(currentLetter, 1, Integer::sum);
+        //if key does not exist, put 1 as value otherwise sum 1 to the value linked to key
+        letterMap.merge(currentLetter, 1, Integer::sum);
 
       //Reads the next byte from the file
         i = input.read();
@@ -66,6 +71,7 @@ public class FileUtils {
       this.inputCharList = inputCharList;
       this.inputFreqList = inputFreqList;
       this.numOfLetters = inputCharList.size();
+      this.textList = textList;
     }
     catch(Exception e){
       e.getStackTrace();
@@ -83,6 +89,10 @@ public class FileUtils {
   public int getNumOfLetters(){
     return this.numOfLetters;
     
+  }
+
+  public ArrayList<Character> getTextList(){
+    return this.textList;
   }
   
 }

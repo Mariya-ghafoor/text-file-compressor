@@ -1,4 +1,7 @@
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.PriorityQueue;
 
 public class App {
@@ -30,72 +33,48 @@ public class App {
         //Reading file to get lists of characters and their frequencies plus number of letters 
         FileUtils myFileUtils = new FileUtils();
         ArrayList<Character> inputCharList = myFileUtils.getInputCharList();
-
         ArrayList<Integer> inputFreqList = myFileUtils.getInputFreqList();
-
         int numOfLetters = myFileUtils.getNumOfLetters();
+        ArrayList<Character> textList = myFileUtils.getTextList();
 
-        new HoffmanCoding(inputCharList, inputFreqList, numOfLetters);
+        //Send the above for encoding
 
-        //build a string of binary numbers for each character in file
-        //send the string along with root node for decoding
+        HuffmanCoding hc = new HuffmanCoding(inputCharList, inputFreqList, numOfLetters);
 
-//  ***********************************
-        // Create a priority queue pq
-        // PriorityQueue<HuffmanNode> pq = new PriorityQueue<>(numOfLetters,new MyComparator());
+        HashMap<Character,String> codeMap = hc.codeMap;
 
-        // for(int i = 0; i < numOfLetters; i++){
-        //     //create a Huffman node and add to pq
+        //Send map of codes and characters along with the original text to convert into a string of binary digits
+        EncodeTextFile ef = new EncodeTextFile(codeMap, textList, "");
 
-        //     HuffmanNode hn = new HuffmanNode();
-        //     hn.ch = inputCharList.get(i);
-        //     hn.value = inputFreqList.get(i);
-            
-        //     hn.left = null;
-        //     hn.right = null;
+        System.out.println("Encoded text: "+ef.encodedText);
+        
 
-        //     pq.add(hn);
-        // }
+        //send the encoded text (binary digits) along with Huffman root node for decoding
 
-        // //create a root node
-        // HuffmanNode root = null;
+        HuffmanDecoding hd = new HuffmanDecoding(ef.encodedText, hc.root);
 
-        // //Find two minimum values from the priroity queue
-        // while(pq.size() > 1){
+        String finalDecodedString = hd.text;
 
-        //     //first min value
-        //     HuffmanNode x = pq.peek();
-        //     pq.poll();
+        System.out.println("Final decoded text: "+finalDecodedString);
 
-        //     //second min value
-        //     HuffmanNode y = pq.peek();
-        //     pq.poll();
+        //Write the String into a file
+        // Creates a FileWriter
+        FileWriter encodedfile = new FileWriter("output.txt");
 
-        //     //create internal node from the two nodes
-        //     HuffmanNode internalNode = new HuffmanNode();
+        // Creates a PrintWriter
+        PrintWriter output = new PrintWriter(encodedfile);
 
-        //     //add the two nodes' values 
-        //     internalNode.value = x.value + y.value;
-        //     internalNode.ch = '-';
+        try {
+            output.println(finalDecodedString);
+        }
+        catch(Exception e) {
+            e.getStackTrace();
+          }
 
-        //     //Assign x as the left node
-        //     internalNode.left = x;
+        output.close();
 
-        //     //Assign y as the right node
-        //     internalNode.right = y;
+        
 
-        //     //marking the new node as the root node
-        //     root = internalNode;
-
-        //     //Now add the new node inplace of x and y to the priority queue
-        //     pq.add(internalNode);
-
-        // }
-        // System.out.println("Root node after adding is: "+root.value);
-
-        // printCode(root,"");
-
-//  ***********************************
 
     }
 }

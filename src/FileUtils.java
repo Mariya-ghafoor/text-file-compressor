@@ -18,14 +18,13 @@ public class FileUtils {
       //System.out.println("File exists: "+myFile.isDirectory());
       FileInputStream input = new FileInputStream("Les-Misérables.txt");
       
-      //FileInputStream input = new FileInputStream("test.txt");
+      // FileInputStream input = new FileInputStream("test.txt");
 
       
       System.out.println("Data in the file: ");
 
       //Reads the first byte
       int i = input.read();
-      //System.out.println("Value of i= "+i);
 
       //char currentLetter = (char)Character.toLowerCase (i);
       char currentLetter = (char)(i);
@@ -54,7 +53,6 @@ public class FileUtils {
         //currentLetter = (char)Character.toLowerCase (i);
         currentLetter = (char)(i);
     }
-    System.out.println(letterMap);
     input.close();
 
     //Sorting the hashmap by value and storing the sorted keys and values in separate lists
@@ -65,9 +63,6 @@ public class FileUtils {
         inputFreqList.add(k.getValue());
       } );
       
-      System.out.println("Character list: "+inputCharList);
-      System.out.println("Frequency list: "+inputFreqList);
-
       this.inputCharList = inputCharList;
       this.inputFreqList = inputFreqList;
       this.numOfLetters = inputCharList.size();

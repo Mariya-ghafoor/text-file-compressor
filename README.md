@@ -1,4 +1,8 @@
-# TEXT FILE COMPRESSION USING HUFFMAN CODING
+<h1 align="center"> TEXT FILE COMPRESSION USING HUFFMAN CODING </h1>
+
+<p align="center">
+<img height=200 width=200 src= "https://media.giphy.com/media/l0MYEpMgixXtNRgrK/giphy.gif" />
+</p>
 
 - This project has two parts:
   - Read a text file and encode the text using Huffman coding. Save the result into a file.
